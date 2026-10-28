@@ -1,0 +1,22 @@
+[
+  {
+    "path": "build-preview/publish-clean-source",
+    "files": 321,
+    "bytes": 2958107.0
+  },
+  {
+    "path": "build-preview/publish-20261028/pytest-current-source",
+    "files": 625,
+    "bytes": 4022094.0
+  },
+  {
+    "path": "build-preview/publish-20261028/pytest-clean-cache",
+    "files": 4,
+    "bytes": 90770.0
+  },
+  {
+    "path": "build-preview/publish-20261028/tmp",
+    "files": 0,
+    "bytes": null
+  }
+]
