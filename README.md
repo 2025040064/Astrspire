@@ -2,9 +2,11 @@
 
 ## 当前工程快照（2026-10-28）
 
-公开源码仓库：[2025040064/Astrspire](https://github.com/2025040064/Astrspire)。本机最新软件版本为 **0.7.0**；本次推送不是创建新的正式 Release。保留 Claude 的自动更新实现，并修复便携布局的数据路径、源码包缺少测试/样例及缺失工作流编辑模块。dev5 的独立模型/编辑器仍有未接入主窗口的内容，不能称为全量主线调试功能已完成。
+公开源码仓库：[2025040064/Astrspire](https://github.com/2025040064/Astrspire)。本机最新软件版本为 **0.7.0**；本次推送不是创建新的正式 Release。保留 Claude 的自动更新实现，并修复便携布局的数据路径、源码包缺少测试/样例、缺失工作流编辑模块及 Qt/ICU 打包冲突。dev5 的独立模型/编辑器仍有未接入主窗口的内容，不能称为全量主线调试功能已完成。
 
 本机安装入口：`Astrspire/AstrspireLauncher.exe`；更新安装包与源码包位于 `build-release/output`。运行数据放在安装根目录 `data/app`、`data/local`，不会以用户 AppData 为默认路径。按用户最新要求，本地只保留最新版本发布物，以下历史章节中的旧产物路径仅作记录。
+
+最新程序目录与便携目录均通过349文件哈希核验和启动健康检查，原有data哈希一致；本机安装器写Windows卸载注册项被执行环境拒绝，不能将程序文件恢复等同于该安装步骤通过，详情见本轮记录。更新的正式联网升级仍未验收。
 
 开发运行：`uv sync --locked --group dev`，随后 `uv run --locked python -m qx_stc_isp`。离线测试：`uv run --locked pytest -q`。构建安装包：`.venv/Scripts/python.exe tools/build_update_release.py --key <仓库外的私钥路径>`；私钥与本机数据不可提交。普通源码运行不需要私钥。
 

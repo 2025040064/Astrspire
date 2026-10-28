@@ -66,7 +66,22 @@ def sha256_file(path: Path) -> str:
 
 def run(command: list[str]) -> None:
     print("+", " ".join(command))
-    subprocess.run(command, check=True, cwd=ROOT)
+    environment = dict(os.environ)
+    system_root = Path(environment.get("SystemRoot", r"C:\Windows"))
+    environment["PATH"] = os.pathsep.join(str(path) for path in (
+        ROOT / ".venv" / "Scripts", Path(sys.base_prefix),
+        system_root / "System32", system_root, system_root / "System32" / "Wbem",
+    ))
+    # PyInstaller must not bundle an unrelated tool's Qt/ICU/OpenSSL DLLs.
+    for name in ("PYTHONPATH", "QT_PLUGIN_PATH", "QT_QPA_PLATFORM_PLUGIN_PATH", "QML2_IMPORT_PATH", "QML_IMPORT_PATH"):
+        environment.pop(name, None)
+    temporary = ROOT / "build-release" / "tmp"
+    cache = ROOT / "build-release" / "pyi-cache"
+    temporary.mkdir(parents=True, exist_ok=True)
+    cache.mkdir(parents=True, exist_ok=True)
+    environment.update(TEMP=str(temporary), TMP=str(temporary),
+                       PYINSTALLER_CONFIG_DIR=str(cache), PYTHONDONTWRITEBYTECODE="1")
+    subprocess.run(command, check=True, cwd=ROOT, env=environment)
 
 
 def write_version_resource(path: Path, version: str, description: str) -> Path:

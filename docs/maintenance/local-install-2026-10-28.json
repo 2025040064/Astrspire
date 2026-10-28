@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-28",
+  "installer_exit": 4,
+  "installer_failure": "HKCU uninstall registration denied (RegCreateKeyEx code 5)",
+  "repair": "complete verified file-tree replacement while stopped",
+  "verified_app_files": 349,
+  "verified_portable_files": 349,
+  "existing_data_files": 2,
+  "existing_data_unchanged": true,
+  "installed_manifest_sha256": "AC7B32BEA8C85F2CD40C2FF27144C0271EADE4DA68E1C51244C01D7B66571079",
+  "setup_sha256": "139D75674BCC4A8DA6B17459E5492CD84824222655594461731D44A0990F8BF4",
+  "health": "installed and portable passed without altering parent environment",
+  "uninstall_registration": "not verified in normal interactive user context"
+}

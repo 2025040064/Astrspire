@@ -1,7 +1,7 @@
 {
   "date": "2026-10-28",
-  "files": 316,
-  "source_bytes": 2871257,
+  "files": 321,
+  "source_bytes": 2905549,
   "findings": [],
   "scope": "staged paths, common GitHub credentials, PEM private keys; not a formal security audit"
 }

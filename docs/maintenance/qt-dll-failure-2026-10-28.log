@@ -1,0 +1,16 @@
+Exit: 1
+Traceback (most recent call last):
+
+  File "app_launcher.py", line 6, in <module>
+
+    from qx_stc_isp.gui import main
+
+  File "pyimod02_importers.py", line 457, in exec_module
+
+  File "qx_stc_isp\gui.py", line 18, in <module>
+
+ImportError: DLL load failed while importing QtCore: �Ҳ���ָ���ĳ���
+
+[PYI-13968:ERROR] Failed to execute script 'app_launcher' due to unhandled exception!
+
+

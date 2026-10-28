@@ -78,3 +78,22 @@ def test_source_archive_includes_regression_tests_and_runtime_examples(tmp_path,
     assert {"tests/test_example.py", "examples/led.hex", "firmware/test.c",
             ".python-version", ".gitignore", "CLAUDE.md"} <= paths
     assert not {"tools/.env", "tools/signing.pem", "assets/fonts/PingFang SC Regular.ttf"} & paths
+
+
+def test_release_build_cannot_collect_dlls_from_unrelated_path(monkeypatch):
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location("isolated_release_builder", root / "tools/build_update_release.py")
+    builder = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(builder)
+    monkeypatch.setenv("PATH", r"C:\Unrelated\poppler\Library\bin")
+    monkeypatch.setenv("PYTHONPATH", r"C:\Unrelated\packages")
+    calls = []
+    monkeypatch.setattr(builder.subprocess, "run", lambda *args, **kwargs: calls.append((args, kwargs)))
+    builder.run([str(builder.PYTHON), "-m", "PyInstaller", "--version"])
+    environment = calls[0][1].get("env")
+    assert environment is not None, "Build subprocesses need an explicit DLL search environment"
+    assert "Unrelated" not in environment["PATH"]
+    assert "PYTHONPATH" not in environment
+    assert str(root / ".venv" / "Scripts") in environment["PATH"]
+    assert Path(environment["TEMP"]).is_relative_to(root)
+    assert Path(environment["PYINSTALLER_CONFIG_DIR"]).is_relative_to(root)

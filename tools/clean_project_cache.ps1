@@ -6,6 +6,10 @@ $projectPrefix = $projectRoot + '\'
 $reportDir = Join-Path $projectRoot 'docs/maintenance'
 $scanErrors = @()
 $candidates = [Collections.Generic.List[string]]::new()
+$versionSource = Get-Content -LiteralPath (Join-Path $projectRoot 'src/qx_stc_isp/__init__.py') -Raw
+if ($versionSource -notmatch '__version__ = "0\.7\.0"') {
+    throw 'This dated maintenance script is pinned to 0.7.0; review it before reusing'
+}
 
 if ($InstalledReleaseVerified) {
     $installedManifest = Join-Path $projectRoot 'Astrspire/versions/0.7.0/build-manifest.json'
@@ -28,13 +32,18 @@ function Add-Candidate([string]$relativePath) {
 foreach ($name in @('.pytest_cache', '.pytest-tmp', '.uv-cache', 'build', 'build-release/0.7.0/work',
     'build-release/0.7.0/spec', 'build-release/tmp', 'build-release/pyi-cache',
     'build-preview/dev5/test-appdata', 'build-preview/dev5/test-localappdata',
-    'build-preview/dev5/tmp', 'build-preview/publish-clean-source')) { Add-Candidate $name }
+    'build-preview/dev5/tmp', 'build-preview/publish-clean-source',
+    'build-preview/publish-20261028/diagnostic',
+    'build-preview/publish-20261028/failed-qt-0.7.0',
+    'build-preview/publish-20261028/failed-install-0.7.0/_internal',
+    'build-preview/publish-20261028/failed-install-0.7.0/Astrspire.exe',
+    'build-preview/publish-20261028/failed-install-0.7.0/build-manifest.json')) { Add-Candidate $name }
 if ($InstalledReleaseVerified) { Add-Candidate 'build-release/0.7.0' }
 
 # dist contains generated releases only. Keep the current release variants.
 Get-ChildItem -LiteralPath (Join-Path $projectRoot 'dist') -Force | ForEach-Object {
     if ($_.Name -match '^(Astrspire-v|QX-STC-ISP)' -and
-        ($InstalledReleaseVerified -or $_.Name -notmatch '^Astrspire-v0\.7\.0(?:$|[.\-])') -and
+        $_.Name -notmatch '^Astrspire-v0\.7\.0(?:$|[.\-])' -and
         $_.Name -notmatch 'private-hardware') { $candidates.Add($_.FullName) }
 }
 
@@ -74,8 +83,19 @@ foreach ($path in $selected) {
     try {
         $resolved = (Resolve-Path -LiteralPath $path -ErrorAction Stop).Path
         if (-not $resolved.StartsWith($projectPrefix, [StringComparison]::OrdinalIgnoreCase)) { throw 'Resolved target escaped project' }
+        $ancestor = Split-Path -Parent $resolved
+        while (-not $ancestor.Equals($projectRoot, [StringComparison]::OrdinalIgnoreCase)) {
+            if ((Get-Item -LiteralPath $ancestor -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) {
+                throw 'Reparse ancestor rejected'
+            }
+            $ancestor = Split-Path -Parent $ancestor
+        }
         $item = Get-Item -LiteralPath $path -Force
         if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Reparse target rejected' }
+        if ($relative -match 'failed-qt' -and
+            ((Test-Path -LiteralPath (Join-Path $path 'data')) -or (Test-Path -LiteralPath (Join-Path $path 'logs')))) {
+            throw 'Runtime data found in failed bundle; target preserved'
+        }
         $files = if ($item.PSIsContainer) { @(Get-ChildItem -LiteralPath $path -Recurse -Force -File -ErrorAction Stop) } else { @($item) }
         $links = if ($item.PSIsContainer) { @(Get-ChildItem -LiteralPath $path -Recurse -Force -Attributes ReparsePoint -ErrorAction Stop) } else { @() }
         if ($links.Count) { throw 'Nested reparse target rejected' }
