@@ -1,0 +1,115 @@
+{
+  "source_trace_sha256": "9955278c434dde1a80da9282634311a8494d22d31779b09ac76782f9ad35674c",
+  "redacted": true,
+  "notice": "Derived offline test data: status bytes 22 onward and erase ACK UID zeroed; checksums recomputed. Not an exact official golden trace.",
+  "frames": [
+    {
+      "direction": "RX",
+      "hex": "46b968003a000a790a790a790a790a790a790a790a796643fdf002000000000000000000000000000000000000000000000000000000000000005216"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000c8ffffd00062882b116"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000c8ffffd00062882af16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000b8efffd0006282d16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000b8efffd0006282b16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000c8000003601f0021f16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000680ee16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000c8000003601f0021f16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000680ee16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000c8000003601f0021f16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000680ee16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000c8000003601f0021f16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000680ee16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000c8000003601f0021f16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000680ee16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000d84013333333333332e16"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000d80f0020000000000e716"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a008c00000000000080020003787fe4f6d8fd75810702000fe4f590f58022ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc416"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b9680007804e3d16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a008c00000000800080ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7616"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000780806f16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a008c00000001000080fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff716"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000780806f16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a008c00000001800080ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7716"
+    },
+    {
+      "direction": "RX",
+      "hex": "46b968000780806f16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a0006ff6f16"
+    },
+    {
+      "direction": "TX",
+      "hex": "46b96a000682f216"
+    }
+  ]
+}

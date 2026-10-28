@@ -1,0 +1,47 @@
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp/
+.coverage
+htmlcov/
+
+# Build products
+build/
+build-clean/
+build-preview/
+build-release/
+.uv-cache/
+dist/
+
+# Release signing material must never be committed
+*.pem
+*.key
+
+# Local runtime and protocol-capture output
+logs/
+captures/private/
+/captures/
+/Astrspire/
+/data/
+/ui-preview/
+/3-烧录软件.zip
+/assets/fonts/*.ttf
+/assets/fonts/*.otf
+
+# Credentials and local-only settings
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.der
+*.jks
+*.keystore
+
+# IDE / OS
+.idea/
+.vscode/
+Thumbs.db
+Desktop.ini
